@@ -1,17 +1,15 @@
 from flask import Flask, jsonify
 
-from flask_oidc import OpenIDConnect
+
 app = Flask(__name__)
 THUMBPRINT = '698BCD64688E433EAEB3717CB13B011F5D2E573C'
-# app.config['OIDC_CLIENT_SECRETS'] = f'/var/ssl/certs/{THUMBPRINT}.der'
-# oidc = OpenIDConnect(app)
-
 
 
 @app.route("/")
 def hello():
-    # with open(f'/var/ssl/certs/{THUMBPRINT}.der') as f:
-    #     pass
+    with open(f'/var/ssl/certs/{THUMBPRINT}.der') as f:
+        content = f.read()
+        return jsonify({'der file': content})
     return jsonify({"status": "invite-app running"})
 
 
@@ -25,15 +23,34 @@ def openid_configuration():
     #
     #                 // Sample: Include the absolute URL to JWKs endpoint
     #                 JwksUri = Url.Link("JWKS", null),
+
     #
     #                 // Sample: Include the supported signing algorithms
     #                 IdTokenSigningAlgValuesSupported = new[] { OidcController.SigningCredentials.Value.Algorithm},
     #             }), "application/json");
 
-    # https://flask-oidc.readthedocs.io/en/latest/
     # with open(f'/var/ssl/certs/{THUMBPRINT}.der') as f:
     #     pass
-    return jsonify({})
+    return jsonify({
+        "issuer": "https://example.com/",
+        "authorization_endpoint": "https://example.com/authorize",
+        "token_endpoint": "https://example.com/token",
+        "userinfo_endpoint": "https://example.com/userinfo",
+        "jwks_uri": "https://example.com/.well-known/jwks.json",
+        "scopes_supported": [
+            "pets_read",
+            "pets_write",
+            "admin"
+        ],
+        "response_types_supported": [
+            "code",
+            "id_token",
+            "token id_token"
+        ],
+        "token_endpoint_auth_methods_supported": [
+            "client_secret_basic"
+        ],
+    })
 
 
 @app.route("/.well-known/keys")
@@ -45,8 +62,6 @@ def keys():
 #     pass
     return "/.well-known/keys"
 
-
-# az webapp config appsettings set --name invite-app --resource-group ringplan --settings WEBSITE_LOAD_CERTIFICATES=*
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
