@@ -33,10 +33,10 @@ def openid_configuration():
     # https://flask-oidc.readthedocs.io/en/latest/
     # with open(f'/var/ssl/certs/{THUMBPRINT}.der') as f:
     #     pass
-    return {}
+    return jsonify({})
 
 
-@app.route("/.well-known/keys", name="JWKS")
+@app.route("/.well-known/keys")
 def keys():
 #     # return Content(JsonConvert.SerializeObject(new JwksModel
 #     #             {
