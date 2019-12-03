@@ -8,9 +8,9 @@ THUMBPRINT = '698BCD64688E433EAEB3717CB13B011F5D2E573C'
 
 @app.route("/")
 def hello():
-    with open(f'/var/ssl/certs/{THUMBPRINT}.der') as f:
-        pass
-    return "Hello World!"
+    # with open(f'/var/ssl/certs/{THUMBPRINT}.der') as f:
+    #     pass
+    return {"status": "invite-app running"}
 
 
 # @app.route("/.well-known/openid-configuration")
