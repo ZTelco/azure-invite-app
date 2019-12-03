@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, jsonify
+
 # from flask_oidc import OpenIDConnect
 app = Flask(__name__)
 # oidc = OpenIDConnect(app)
@@ -10,7 +11,7 @@ THUMBPRINT = '698BCD64688E433EAEB3717CB13B011F5D2E573C'
 def hello():
     # with open(f'/var/ssl/certs/{THUMBPRINT}.der') as f:
     #     pass
-    return {"status": "invite-app running"}
+    return jsonify({"status": "invite-app running"})
 
 
 # @app.route("/.well-known/openid-configuration")
@@ -43,5 +44,7 @@ def hello():
 #     pass
 
 
-# az webapp up --sku FREE -n "inviteapp2" -l "Central US"
 # az webapp config appsettings set --name invite-app --resource-group ringplan --settings WEBSITE_LOAD_CERTIFICATES=*
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', debug=True)
