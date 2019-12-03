@@ -1,10 +1,11 @@
 from flask import Flask, jsonify
 
-# from flask_oidc import OpenIDConnect
+from flask_oidc import OpenIDConnect
 app = Flask(__name__)
-# oidc = OpenIDConnect(app)
-
 THUMBPRINT = '698BCD64688E433EAEB3717CB13B011F5D2E573C'
+app.config['OIDC_CLIENT_SECRETS'] = f'/var/ssl/certs/{THUMBPRINT}.der'
+oidc = OpenIDConnect(app)
+
 
 
 @app.route("/")
