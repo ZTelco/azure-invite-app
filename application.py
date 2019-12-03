@@ -1,7 +1,7 @@
 from flask import Flask
-from flask_oidc import OpenIDConnect
+# from flask_oidc import OpenIDConnect
 app = Flask(__name__)
-oidc = OpenIDConnect(app)
+# oidc = OpenIDConnect(app)
 
 THUMBPRINT = '698BCD64688E433EAEB3717CB13B011F5D2E573C'
 
