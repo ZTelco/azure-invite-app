@@ -7,10 +7,15 @@ THUMBPRINT = '698BCD64688E433EAEB3717CB13B011F5D2E573C'
 
 @app.route("/")
 def hello():
-    with open(f'/var/ssl/certs/{THUMBPRINT}.der') as f:
-        content = f.read()
-        return jsonify({'der file': content})
+    # with open(f'/var/ssl/certs/{THUMBPRINT}.der') as f:
+    #     content = f.read()
+    #     return jsonify({'der file': content})
     return jsonify({"status": "invite-app running"})
+
+
+@app.route("/token-hint")
+def token_hint():
+    return jsonify({"email": "test@email.com"})
 
 
 # @app.route("/.well-known/openid-configuration")
